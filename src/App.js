@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import './App.css';
 
 import firebase from 'firebase/app';
@@ -86,8 +86,13 @@ function ChatRoom() {
     })
 
     setFormValue('');
-    dummyDiv.current.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const scrollToBottom = () => {
+    dummyDiv.current.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  useEffect(scrollToBottom, [messages]);
 
   return (
     <>
