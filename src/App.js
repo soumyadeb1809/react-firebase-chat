@@ -64,7 +64,7 @@ function SignOut() {
 function ChatRoom() {
 
   const msgsRef = firestore.collection('messages');
-  const query = msgsRef.orderBy('createdAt').limit(25);
+  const query = msgsRef.orderBy('createdAt').limitToLast(50);
 
   const [messages] = useCollectionData(query, {idField: 'id'});
 
@@ -89,6 +89,7 @@ function ChatRoom() {
   };
 
   const scrollToBottom = () => {
+    console.log(messages);
     dummyDiv.current.scrollIntoView({ behavior: 'smooth' });
   }
 
@@ -105,7 +106,7 @@ function ChatRoom() {
       <form onSubmit={ sendMessage }>
         <input value={ formValue } onChange={ (e) => setFormValue(e.target.value) } placeholder="Type a message"/>
 
-        <button type="submit">🕊️</button>
+        <button type="submit" disabled={ !formValue }>🕊️</button>
 
       </form>
     </>
